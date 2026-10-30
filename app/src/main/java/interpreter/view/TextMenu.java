@@ -51,7 +51,7 @@ public class TextMenu {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
-            System.out.println("\n=== MENIU INTERPRETOR ===");
+            System.out.println("\n MENIU INTERPRETOR ");
             System.out.println("0. Ieșire");
             for (int i = 0; i < examples.length; i++) {
                 System.out.println((i + 1) + ". Execută: " + examples[i].toString());
@@ -78,9 +78,9 @@ public class TextMenu {
                     repo.addPrg(state);
                     Controller ctrl = new Controller(repo);
 
-                    System.out.println("\n--- ÎNCEPE EXECUȚIA ---");
+                    System.out.println("\n ÎNCEPE EXECUȚIA ");
                     ctrl.allStep();
-                    System.out.println("--- EXECUȚIE TERMINATĂ ---");
+                    System.out.println(" EXECUȚIE TERMINATĂ ");
                 } catch (Exception e) {
                     System.err.println("Eroare la execuție: " + e.getMessage());
                 }
