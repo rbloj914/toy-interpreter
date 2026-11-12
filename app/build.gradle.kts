@@ -33,11 +33,13 @@ java {
 }
 
 application {
-    // Define the main class for the application.
-    mainClass = "interpreter.App"
+    mainClass.set("interpreter.view.TextMenu")
+}
+
+tasks.named<JavaExec>("run") {
+    standardInput = System.`in`
 }
 
 tasks.named<Test>("test") {
-    // Use JUnit Platform for unit tests.
     useJUnitPlatform()
 }

@@ -2,6 +2,7 @@ package interpreter.model.adt;
 import interpreter.exceptions.ADTException;
 import java.util.Stack;
 
+//LIFO
 public class MyStack<T> implements IStack<T> {
     private final Stack<T> stack;
 

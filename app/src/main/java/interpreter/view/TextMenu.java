@@ -47,7 +47,11 @@ public class TextMenu {
                                         new AssignStmt("v", new ValueExp(new IntValue(3)))),
                                         new PrintStmt(new VarExp("v"))))));
 
-        IStmt[] examples = {ex1, ex2, ex3};
+        IStmt ex4 = new CompStmt(new VarDeclStmt("a", new BoolType()),
+                new CompStmt(new AssignStmt("a", new ValueExp(new IntValue(2))),
+                        new PrintStmt(new VarExp("a"))));
+
+        IStmt[] examples = {ex1, ex2, ex3, ex4};
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
