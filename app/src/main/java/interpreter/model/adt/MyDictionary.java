@@ -36,4 +36,10 @@ public class MyDictionary<K, V> implements IDictionary<K, V> {
     public String toString() {
         return map.toString();
     }
+
+    @Override
+    public void remove(K key) throws ADTException {
+        if (!isDefined(key)) throw new ADTException("Cheia " + key + " nu este definită!");
+        map.remove(key);
+    }
 }
