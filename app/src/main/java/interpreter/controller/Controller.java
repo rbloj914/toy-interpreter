@@ -1,4 +1,5 @@
 package interpreter.controller;
+
 import interpreter.exceptions.MyException;
 import interpreter.model.PrgState;
 import interpreter.model.adt.IStack;
@@ -23,10 +24,12 @@ public class Controller {
 
     public void allStep() throws MyException {
         PrgState prg = repo.getCrtPrg();
+        repo.logPrgStateExec(prg); // Loghează starea inițială[cite: 1]
         System.out.println("Starea inițială:");
         System.out.println(prg);
         while (!prg.getExeStack().isEmpty()) {
             oneStep(prg);
+            repo.logPrgStateExec(prg); // Loghează starea după fiecare instrucțiune[cite: 1]
             System.out.println(prg);
         }
     }

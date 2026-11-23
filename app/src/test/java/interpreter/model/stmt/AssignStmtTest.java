@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class AssignStmtTest {
     @Test
     void assignToUndeclaredVariableThrows() {
-        PrgState state = new PrgState(new MyStack<>(), new MyDictionary<>(), new MyList<>(), new NopStmt());
+        PrgState state = new PrgState(new MyStack<>(), new MyDictionary<>(), new MyList<>(), new MyDictionary<>(), new NopStmt());
         IStmt assign = new AssignStmt("x", new ValueExp(new IntValue(5)));
 
         assertThrows(StatementException.class, () -> assign.execute(state));

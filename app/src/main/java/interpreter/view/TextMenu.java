@@ -1,11 +1,18 @@
 package interpreter.view;
 
+
+import interpreter.model.type.StringType;
+import interpreter.model.value.StringValue;
+import interpreter.model.stmt.OpenRFileStmt;
+import interpreter.model.stmt.ReadFileStmt;
+import interpreter.model.stmt.CloseRFileStmt;
 import interpreter.controller.Controller;
 import interpreter.model.PrgState;
 import interpreter.model.adt.MyDictionary;
 import interpreter.model.adt.MyList;
 import interpreter.model.adt.MyStack;
 import interpreter.model.exp.ArithExp;
+import interpreter.model.exp.RelationalExp;
 import interpreter.model.exp.ValueExp;
 import interpreter.model.exp.VarExp;
 import interpreter.model.stmt.AssignStmt;
@@ -51,7 +58,33 @@ public class TextMenu {
                 new CompStmt(new AssignStmt("a", new ValueExp(new IntValue(2))),
                         new PrintStmt(new VarExp("a"))));
 
-        IStmt[] examples = {ex1, ex2, ex3, ex4};
+        IStmt ex5 = new CompStmt(new VarDeclStmt("a", new IntType()),
+                new CompStmt(new VarDeclStmt("b", new IntType()),
+                        new CompStmt(new VarDeclStmt("c", new BoolType()),
+                                new CompStmt(new AssignStmt("a", new ValueExp(new IntValue(1))),
+                                        new CompStmt(new AssignStmt("b", new ValueExp(new IntValue(2))),
+                                                new CompStmt(new AssignStmt("c", new RelationalExp("!=", new VarExp("a"), new VarExp("b"))),
+                                                        new PrintStmt(new VarExp("c"))))))));
+
+        IStmt ex6 = new CompStmt(new VarDeclStmt("varf", new StringType()),
+                new CompStmt(new AssignStmt("varf", new ValueExp(new StringValue("test.in"))),
+                        new CompStmt(new OpenRFileStmt(new VarExp("varf")),
+                                new CompStmt(new VarDeclStmt("varc", new IntType()),
+                                        new CompStmt(new ReadFileStmt(new VarExp("varf"), "varc"),
+                                                new CompStmt(new PrintStmt(new VarExp("varc")),
+                                                        new CompStmt(new ReadFileStmt(new VarExp("varf"), "varc"),
+                                                                new CompStmt(new PrintStmt(new VarExp("varc")),
+                                                                        new CloseRFileStmt(new VarExp("varf"))))))))));
+
+        IStmt ex7 = new CompStmt(new VarDeclStmt("a", new IntType()),
+                new CompStmt(new VarDeclStmt("b", new IntType()),
+                        new CompStmt(new AssignStmt("a", new ValueExp(new IntValue(5))),
+                                new CompStmt(new AssignStmt("b", new ValueExp(new IntValue(7))),
+                                        new IfStmt(new RelationalExp("<", new VarExp("a"), new VarExp("b")),
+                                                new PrintStmt(new VarExp("a")),
+                                                new PrintStmt(new VarExp("b")))))));
+
+        IStmt[] examples = {ex1, ex2, ex3, ex4, ex5, ex6, ex7};
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
@@ -77,7 +110,7 @@ public class TextMenu {
             if (option >= 1 && option <= examples.length) {
                 try {
                     IStmt selectedPrg = examples[option - 1];
-                    PrgState state = new PrgState(new MyStack<>(), new MyDictionary<>(), new MyList<>(), selectedPrg);
+                    PrgState state = new PrgState(new MyStack<>(), new MyDictionary<>(), new MyList<>(), new MyDictionary<>(), selectedPrg);
                     IRepository repo = new Repository();
                     repo.addPrg(state);
                     Controller ctrl = new Controller(repo);
